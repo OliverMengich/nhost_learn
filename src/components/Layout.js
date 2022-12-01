@@ -1,5 +1,5 @@
 import styles from '../styles/components/Layout.module.css';
-
+import { useSignOut } from '@nhost/react';
 import { Fragment } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { Menu, Transition } from '@headlessui/react';
@@ -10,27 +10,27 @@ import {
   UserIcon,
 } from '@heroicons/react/outline';
 import Avatar from './Avatar';
-
+import { useUserData } from '@nhost/react';
 const Layout = () => {
-  const user = null;
-
-  const menuItems = [
-    {
-      label: 'Dashboard',
-      href: '/',
-      icon: HomeIcon,
-    },
-    {
-      label: 'Profile',
-      href: '/profile',
-      icon: UserIcon,
-    },
-    {
-      label: 'Logout',
-      onClick: () => null,
-      icon: LogoutIcon,
-    },
-  ];
+  	const user = useUserData();
+  	const { signOut } = useSignOut()
+    const menuItems = [
+      {
+        label: 'Dashboard',
+        href: '/',
+        icon: HomeIcon,
+      },
+      {
+        label: 'Profile',
+        href: '/profile',
+        icon: UserIcon,
+      },
+      {
+        label: 'Logout',
+        onClick: () => signOut(),
+        icon: LogoutIcon,
+      },
+    ];
 
   return (
     <div>
